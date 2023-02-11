@@ -1,0 +1,40 @@
+.list-data-box {
+  width: 100%;
+}
+.list-data-box .tit-box {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-left: none;
+  border-right: none;
+}
+.list-data-box .tit-box div {
+  float: left;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+.list-data-box .tit-box div:last-child {
+  border-right: none;
+}
+.list-data-box .body-box ul {
+  width: 100%;
+  overflow: hidden;
+}
+.list-data-box .body-box ul .body-item {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.list-data-box .body-box ul .body-item div {
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.list-data-box .body-box ul .body-item div:last-child {
+  border-right: none;
+}
+.list-data-box .body-box ul .body-item div:nth-child(2) {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+/*# sourceMappingURL=./index.css.map */

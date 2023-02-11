@@ -1,0 +1,35 @@
+@import url('../../base-style.less');
+
+.nav-swiper-container {
+    width: 100%;
+    height: 600px;
+    .nav-swiper-wrapper {
+        position: relative;
+        height: 100%;
+        border: 0;
+        box-shadow: 0 4px 5px rgba(0,0,0,.3);
+        .left-navs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            width: 200px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .3);
+            ul {
+                width: 100%;
+                height: 100%;
+                color: #c7dde4;
+                li {
+                    width: 100%;
+                    height: 100px;
+                    line-height: 100px;
+                }
+                .active {
+                    color: @main-color;
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+}

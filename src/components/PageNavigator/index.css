@@ -1,0 +1,22 @@
+.page-navigator-container {
+  width: 100%;
+  height: 100%;
+}
+.page-navigator-container ul {
+  display: inline-block;
+  height: 100%;
+}
+.page-navigator-container ul .page-item {
+  float: left;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.page-navigator-container ul .page-item.active {
+  background-color: #7ED9F6;
+  color: #fff;
+}
+/*# sourceMappingURL=./index.css.map */

@@ -1,0 +1,93 @@
+@import url('../../base-style.less');
+
+.user-center-container {
+    .user-center-nav {
+        position: relative;
+        height: 120px;
+        background-color: @main-color;
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+        }
+        h2 {
+            position: absolute;
+            top: 35px;
+            left: 80px;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            letter-spacing: 10px;
+            font-size: 24px;
+            color: #fff;
+        }
+        .user-tit {
+            position: absolute;
+            right: 100px;
+            bottom: -15px;
+            width: 160px;
+            height: 40px;
+            padding: 5px;
+            background-color: #b8dfeb;
+            border-radius: 20px 20px 0 0 /30px 30px 0 0;
+            cursor: pointer;
+            .avator {
+                float: left;
+                width: 40px;
+                height: 40px;
+                margin-left: 10px;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .user-name {
+                float: left;
+                width: 100px;
+                height: 30px;
+                margin-top: 5px;
+                margin-left: 10px;
+                text-align: center;
+                line-height: 30px;
+                font-size: 14px;
+            }
+        }
+    }
+    .user-center-body {
+        height: 600px;
+        margin: 15px auto 0;
+        border-top: 1px solid rgba(0,0,0,.3);
+        border-bottom: none;
+        .user-choice-item-box {
+            float: left;
+            width: 149px;
+            height: 600px;
+            border-right: 1px solid rgba(0,0,0,.3);
+            ul {
+                .choice-item {
+                    width: 100%;
+                    height: 50px;
+                    line-height: 50px;
+                    letter-spacing: 2px;
+                    background-color: transparent;
+                    color: #000;
+                    cursor: pointer;
+                    &.active {
+                        background-color: @main-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .item-body {
+            float: left;
+            width: 1050px;
+            height: 600px;
+        }
+    }
+}

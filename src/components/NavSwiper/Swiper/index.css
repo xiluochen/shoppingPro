@@ -1,0 +1,28 @@
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.swiper-container .swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.swiper-container .swiper-wrapper ul {
+  position: relative;
+  top: -2%;
+  width: 106%;
+  height: 106%;
+}
+.swiper-container .swiper-wrapper ul li {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.swiper-container .swiper-wrapper ul li img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/*# sourceMappingURL=./index.css.map */

@@ -1,0 +1,94 @@
+.daily-recommend-container {
+  width: 100%;
+  height: 340px;
+  margin-top: 10px;
+}
+.daily-recommend-container .recommend-wrapper {
+  position: relative;
+  height: 100%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+.daily-recommend-container .recommend-wrapper .recommend-tit {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  color: #fff;
+  background-color: #7ED9F6;
+}
+.daily-recommend-container .recommend-wrapper .recommend-tit .tit {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 60px;
+  line-height: 60px;
+  letter-spacing: 5px;
+}
+.daily-recommend-container .recommend-wrapper .recommend-tit .more {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  height: 60px;
+  line-height: 60px;
+  color: #999;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+.daily-recommend-container .recommend-wrapper .recommend-tit .more:hover {
+  color: #000;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background-color: #eee;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box ul {
+  position: absolute;
+  height: 100%;
+  white-space: nowrap;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box ul .recommend-item {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 240px;
+  margin: 20px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box ul .recommend-item img {
+  display: block;
+  width: 180px;
+  height: 180px;
+  margin: 10px auto 0;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box ul .recommend-item .item-title {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #7ED9F6;
+}
+.daily-recommend-container .recommend-wrapper .recommend-box ul .recommend-item:hover {
+  transform: scaleX(1.1) scaleY(1.1);
+}
+.daily-recommend-container .recommend-wrapper .scroll-box {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  z-index: 99;
+}
+.daily-recommend-container .recommend-wrapper .scroll-box .scroll-bar {
+  position: absolute;
+  width: 400px;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+}
+/*# sourceMappingURL=./index.css.map */

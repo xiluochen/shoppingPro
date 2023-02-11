@@ -1,0 +1,13 @@
+.success-container .success-wrapper {
+  height: 300px;
+  line-height: 300px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: #7ED9F6;
+  background-color: #fff;
+}
+.success-container .success-wrapper span {
+  font-size: 36px;
+}
+/*# sourceMappingURL=./index.css.map */

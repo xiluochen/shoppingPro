@@ -1,0 +1,14 @@
+.preserve-container .preserve-body .preserve-wrapper {
+  padding-top: 200px;
+  height: 500px;
+  box-sizing: border-box;
+}
+.preserve-container .preserve-body .preserve-wrapper h2 {
+  font-weight: 400;
+}
+.preserve-container .preserve-body .preserve-wrapper h2 span {
+  display: inline-block;
+  margin: 0 5px;
+  color: #7ED9F6;
+}
+/*# sourceMappingURL=./index.css.map */

@@ -1,0 +1,74 @@
+.top-nav-container {
+  width: 100%;
+  height: 680px;
+}
+.top-nav-container .nav-items-container {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 5px;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper {
+  position: relative;
+  height: 100%;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .logo {
+  top: 10px;
+  left: 60px;
+  width: 60px;
+  height: 60px;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container {
+  width: 1000px;
+  height: 80px;
+  margin-left: 200px;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul {
+  width: 100%;
+  height: 100%;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  line-height: 80px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #c7dde4;
+  z-index: 99;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item:hover {
+  cursor: pointer;
+  box-shadow: 0 1px rgba(126, 217, 246, 0.3);
+  color: #7ED9F6;
+  transition-property: color;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item:hover .nav-item-children {
+  height: 200px;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item .nav-item-children {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item .nav-item-children ul {
+  width: 100%;
+  height: 100%;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item .nav-item-children ul li {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 16px;
+  color: #c7dde4;
+}
+.top-nav-container .nav-items-container .nav-items-wrapper .items-main-container ul .nav-item .nav-item-children ul li:hover {
+  color: #7ED9F6;
+}
+/*# sourceMappingURL=./index.css.map */
