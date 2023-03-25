@@ -36,6 +36,7 @@ export default function LoginPage(){
             username,
             password
         });
+        console.log(res);
         if(res.status === 200){
             window.sessionStorage.setItem('token', res.data);
             navigate(-1);

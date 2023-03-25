@@ -14,6 +14,7 @@ export default function HomePage(){
 
     const askRecommend = async()=>{
         let res = await requireRecommend();
+        console.log(res);
         if(res.status === 200){
             setRecommendData(res.data);
         }else {
