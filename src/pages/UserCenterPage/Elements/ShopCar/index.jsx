@@ -21,11 +21,12 @@ export default function ShopCar(){
     const askShopCar = async ()=>{
         let res = await requireShopCar();
         if(res.status === 200){
-            res.data.forEach(item=>{
+            const {data} = res.data;
+            data.forEach(item=>{
                 item.isClicked = false;
             })
-            setShopCar(res.data);
-            let mid = Math.ceil(res.data.length/5);
+            setShopCar(data);
+            let mid = Math.ceil(data.length/5);
             setPages([1, mid, 1, 3]);
             setPay([0, 0]);
         }
@@ -80,7 +81,7 @@ export default function ShopCar(){
         setPay(shopCarData.reduce((prev, item)=>{
             if(item.isClicked){
                 prev[0]+=Number(item.num);
-                prev[1]+=Number(item.info.price*item.num);
+                prev[1]+=Number(item.target.price*item.num);
             }
             return prev;
         }, [0,0]));
@@ -107,11 +108,11 @@ export default function ShopCar(){
                                             key={item.id}
                                         >
                                             <div className="clickable"><input type='checkbox' value='' checked={item.isClicked} onChange={(event)=>handlerClick(event, item.id)}/></div>
-                                            <div className="img"><img src={item.info.imgUrl} alt={item.info.title} /></div>
-                                            <div className="title">{item.info.title}</div>
-                                            <div className="price">{item.info.price}</div>
+                                            <div className="img"><img src={item.target.imgUrl} alt={item.target.title} /></div>
+                                            <div className="title">{item.target.title}</div>
+                                            <div className="price">{item.target.price}</div>
                                             <div className="num">{item.num}</div>
-                                            <div className="whole-price">{item.num * item.info.price}</div>
+                                            <div className="whole-price">{item.num * item.target.price}</div>
                                         </li>
                                     )
                                 }

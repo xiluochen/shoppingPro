@@ -1,81 +1,102 @@
 import axios from "axios";
 
-const requireAxios = (path, options)=>{
-    return new Promise((resolve, reject)=>{
-        axios(path, options)
-            .then((res)=>{
-                resolve(res);
-            })
-            .catch((err)=>{
-                reject(err);
-            })
-    })  
+const shopAxios = axios.create({
+    method:'GET',
+    baseURL:'/shop',
+})
+
+shopAxios.interceptors.request.use((config)=>{
+    if(config.url.includes('/user') || config.url.includes('/payfor') || config.url==='/logout'){
+        Object.assign(config.headers, {
+            token:window.sessionStorage.getItem('token')||'',
+        });
+    }
+    return config;
+})
+
+shopAxios.interceptors.response.use((res)=>{
+    if(Array.isArray(res.data.data)) {
+        res.data.data = res.data.data.map(item=>{
+            if(item._id){
+                return {...item, id:item._id}
+            }
+            return item;
+        });
+    }
+    return res;
+},(err)=>{
+    if(err.response.status === 504){
+        window.sessionStorage.removeItem('token');
+    }
+})
+
+export const requireCommodityInfo = ({id}) => {
+    return shopAxios(`/good/${id}`, {
+        method:'GET',
+    });
+}
+
+export const requireRecommend = () => {
+    return shopAxios('/recommend', {
+        method:'GET',
+    });
+}
+
+export const requireRegister = (data)=>{
+    return shopAxios('/login', {
+        method:'POST',
+        data
+    })
+}
+
+export const requireLogin = (data)=>{
+    return shopAxios('/login', {
+        method:'GET',
+        params:data,
+    })
+}
+
+export const requireLogout = ()=>{
+    return shopAxios('/logout', {
+        method:'POST',
+    })
+}
+
+export const requireUserInfo = ()=>{
+    return shopAxios('/user', {
+        method:'GET'
+    })
 }
 
 export const requireAppendShopCar = ({id, num}) => {
-    return requireAxios('/appendshopcar', {
-        method:'post',
+    return shopAxios('/user/shopcar', {
+        method:'POST',
         data: {
-            id:id,
+            target:id,
             num:num,
         }
     });
 }
 
-export const requireCommodityInfo = ({id}) => {
-    return requireAxios('/commodity', {
-        method:'post',
-        data:{id: id,}
-    });
-}
-
-export const requireRecommend = () => {
-    return requireAxios('/recommend', {
-        method:'get',
-    });
-}
-
-export const requireLogin = (data)=>{
-    return requireAxios('/login', {
-        method:'post',
-        data
-    })
-}
-
-export const requireUserInfo = (token)=>{
-    return requireAxios('/userinfo', {
-        method:'post',
-        data: {
-            token
-        }
-    })
-}
-
 export const requireSwiperData = ()=>{
-    return requireAxios('/swiperdata', {});
+    return shopAxios('/swiper', {});
 }
 
-export const requireShopCar = (token) => {
-    return requireAxios('/shopcar', {
-        method:'post',
-        data: {
-            token,
-        }
+export const requireShopCar = () => {
+    return shopAxios('/user/shopcar', {
+        method:'GET',
     })
 }
 
-export const requirePay = (data) => {
-    return requireAxios('/pay', {
+export const requirePay = ( data) => {
+    return shopAxios('/payfor', {
         method:'post',
         data
     })
 }
 
-export const requireLocs = (token)=>{
-    return requireAxios('/locs', {
-        method:'get',
-        data:{
-            token
-        }
+export const requireLocs = ()=>{
+    return shopAxios('/user/locs', {
+        method:'GET'
     })
 }

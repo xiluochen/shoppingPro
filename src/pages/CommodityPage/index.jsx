@@ -19,7 +19,8 @@ export default function CommodityPage(){
     const askCommodityInfo = useCallback(async (id)=>{
         let res = await requireCommodityInfo({id});
         if(res.status === 200){
-            setCommodityData(res.data);
+            console.log(res.data);
+            setCommodityData(res.data.data);
         }else {
             setCommodityData({});
         }
@@ -28,7 +29,7 @@ export default function CommodityPage(){
     const askRecommend = useCallback(async () => {
         let res = await requireRecommend();
         if(res.status === 200){
-            setRecommendData(res.data);
+            setRecommendData(res.data.data);
         }else {
             setRecommendData([]);
         }
