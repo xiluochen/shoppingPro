@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
-import './mock/index';
+// import './mock/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

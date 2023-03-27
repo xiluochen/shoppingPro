@@ -27,14 +27,9 @@ export default function TopHeader(props){
     }
 
     const askUserInfo = async ()=>{
-        let res = await requireUserInfo('/userinfo', {
-            method:'post',
-            data: {
-                token:token
-            }
-        });
+        let res = await requireUserInfo();
         if(res.status === 200){
-            setUserInfo(res.data);
+            setUserInfo(res.data.data);
         }
     }
 
@@ -73,7 +68,7 @@ export default function TopHeader(props){
                             style={{display:isShowLogin?'block':'none'}}
                             onClick={()=>{navigate('/user')}}
                         >
-                            你好,{userInfo.userName}
+                            你好,{userInfo.username}
                         </div>
                     }
                     

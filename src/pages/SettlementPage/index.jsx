@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import Footer from "../../components/Footer";
@@ -11,19 +11,23 @@ export default function SettlementPage(){
     const params = useParams();
     const navigate = useNavigate();
 
-    let {id, num} = params;
-    const token = useMemo(()=>(window.sessionStorage.getItem('token') || ''),[]); 
+    let {id, num} = params; 
+
+    const token = window.sessionStorage.getItem('token') || '';
+    if(token === ''){
+        navigate('/login');
+    }
 
     const [commodity, setCommodity] = useState({});
 
     const handlerConfirm = useCallback(async ()=>{
-        let res = await requireAppendShopCar({token, id, num})
+        let res = await requireAppendShopCar({id, num})
         if(res.status === 200) {
             navigate('/user/shopcar');
         }else {
-            console.log(res.data);
+            console.log(res.data.data);
         }
-    }, [id, token, num, navigate]);
+    }, [id, num, navigate]);
 
     const handlerCancel = useCallback(()=>{
         navigate(-1);
@@ -32,9 +36,9 @@ export default function SettlementPage(){
     const askCommodityInfo = useCallback(async ()=> {
         let res = await requireCommodityInfo({id});
         if(res.status === 200){
-            setCommodity(res.data)
+            setCommodity(res.data.data)
         }else {
-            console.log(res.data);
+            console.log(res.data.data);
             setCommodity({})
         }
     }, [id]) 

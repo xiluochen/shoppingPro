@@ -2,7 +2,32 @@ import axios from "axios";
 
 const shopAxios = axios.create({
     method:'GET',
-    baseURL:'http://127.0.0.1:4000',
+    baseURL:'/shop',
+})
+
+shopAxios.interceptors.request.use((config)=>{
+    if(config.url.includes('/user') || config.url.includes('/payfor') || config.url==='/logout'){
+        Object.assign(config.headers, {
+            token:window.sessionStorage.getItem('token')||'',
+        });
+    }
+    return config;
+})
+
+shopAxios.interceptors.response.use((res)=>{
+    if(Array.isArray(res.data.data)) {
+        res.data.data = res.data.data.map(item=>{
+            if(item._id){
+                return {...item, id:item._id}
+            }
+            return item;
+        });
+    }
+    return res;
+},(err)=>{
+    if(err.response.status === 504){
+        window.sessionStorage.removeItem('token');
+    }
 })
 
 export const requireCommodityInfo = ({id}) => {
@@ -27,28 +52,28 @@ export const requireRegister = (data)=>{
 export const requireLogin = (data)=>{
     return shopAxios('/login', {
         method:'GET',
-        data
+        params:data,
     })
 }
 
-export const requireUserInfo = (token)=>{
+export const requireLogout = ()=>{
+    return shopAxios('/logout', {
+        method:'POST',
+    })
+}
+
+export const requireUserInfo = ()=>{
     return shopAxios('/user', {
-        method:'GET',
-        headers:{
-            token,
-        }
+        method:'GET'
     })
 }
 
-export const requireAppendShopCar = ({id, num, token}) => {
+export const requireAppendShopCar = ({id, num}) => {
     return shopAxios('/user/shopcar', {
         method:'POST',
         data: {
-            id:id,
+            target:id,
             num:num,
-        },
-        headers:{
-            token
         }
     });
 }
@@ -57,30 +82,21 @@ export const requireSwiperData = ()=>{
     return shopAxios('/swiper', {});
 }
 
-export const requireShopCar = (token) => {
+export const requireShopCar = () => {
     return shopAxios('/user/shopcar', {
         method:'GET',
-        headers: {
-            token,
-        }
     })
 }
 
-export const requirePay = (token, data) => {
+export const requirePay = ( data) => {
     return shopAxios('/payfor', {
         method:'post',
-        headers:{
-            token
-        },
         data
     })
 }
 
-export const requireLocs = (token)=>{
+export const requireLocs = ()=>{
     return shopAxios('/user/locs', {
-        method:'GET',
-        headers:{
-            token
-        }
+        method:'GET'
     })
 }

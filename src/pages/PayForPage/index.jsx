@@ -9,6 +9,10 @@ import'./index.css';
 export default function PayForPage(){
 
     const navigate = useNavigate();
+    const token = window.sessionStorage.getItem('token') || '';
+    if(token === ''){
+        navigate('/login');
+    }
 
     let [payParams, setPayParams] = useState([0,0]);
     let {payData} = useLocation().state;
@@ -21,8 +25,7 @@ export default function PayForPage(){
 
     const handlerPay = async()=>{
         let res = await requirePay({
-            token:window.sessionStorage.getItem('token'),
-            shops:payData,
+            ids:payData.map(item=>item.id),
             loc:showLoc,
         })
         if(res.status === 200){
@@ -31,22 +34,24 @@ export default function PayForPage(){
     }
 
     const askLocs = async () => {
-        let res = await requireLocs(window.sessionStorage.getItem('token')||'');
+        let res = await requireLocs();
         if(res.status === 200){
-            setLocations(res.data);
-            setShowLoc(res.data.filter(item=>item.default)[0]||{});
+            const {data} = res.data;
+            setLocations(data);
+            setShowLoc(data.filter(item=>Boolean(item.default))[0]||{});
         }
     }
 
     useEffect(()=>{
         setPayParams(
             payData.reduce(
-                (prev,item)=>[prev[0]+Number(item.num),prev[1]+Number(item.num)*Number(item.info.price)]
+                (prev,item)=>[prev[0]+Number(item.num),prev[1]+Number(item.num)*Number(item.target.price)]
                 ,[0,0]
             )
         )
         askLocs();
     }, [payData])
+
 
     return (
         <div className="pay-for-container">
@@ -83,18 +88,18 @@ export default function PayForPage(){
                             <ul>
                                 {
                                     locs.map((item)=>{
-                                        if(item.id===showLoc.id)return<></>;
-                                            return (
-                                                <li 
-                                                    className="loc-item"
-                                                    key={item.id}
-                                                    onClick={()=>{setShowLoc(item)}}
-                                                >
-                                                    <div className="loc-name">收件人:<span>{item.target}</span></div>
-                                                    <div className="loc-phone">联系电话:<span>{item.phone}</span></div>
-                                                    <div className="loc-loc">收货地址:<span>{item.loc}</span></div>
-                                                </li>
-                                            );
+                                        if(item.id===showLoc.id)return;
+                                        return (
+                                            <li 
+                                                className="loc-item"
+                                                key={item.id}
+                                                onClick={()=>{setShowLoc(item)}}
+                                            >
+                                                <div className="loc-name">收件人:<span>{item.target}</span></div>
+                                                <div className="loc-phone">联系电话:<span>{item.phone}</span></div>
+                                                <div className="loc-loc">收货地址:<span>{item.loc}</span></div>
+                                            </li>
+                                        );
                                     })
                                 }
                             </ul>
@@ -114,11 +119,11 @@ export default function PayForPage(){
                                 {
                                     payData.map((item)=>(
                                         <li className="pay-item" key={item.id}>
-                                            <div className="img"><img src={item.info.imgUrl} alt={item.info.title} /></div>
-                                            <div className="name">{item.info.title}</div>
-                                            <div className="price">{item.info.price}</div>
+                                            <div className="img"><img src={item.target.imgUrl} alt={item.target.title} /></div>
+                                            <div className="name">{item.target.title}</div>
+                                            <div className="price">{item.target.price}</div>
                                             <div className="num">{item.num}</div>
-                                            <div className="whole-price">{item.num * item.info.price}</div>
+                                            <div className="whole-price">{item.num * item.target.price}</div>
                                             <div className="other">{item.other||''}</div>
                                         </li>
                                     ))

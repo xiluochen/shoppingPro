@@ -4,7 +4,7 @@ import Logo from "../../components/Logo";
 import TopHeader from "../../components/TopHeader";
 
 import { userCenterItems } from "../../static/data";
-import { requireUserInfo } from "../../static/require";
+import { requireLogout, requireUserInfo } from "../../static/require";
 
 import './index.css';
 
@@ -19,19 +19,41 @@ export default function UserCenterPage(){
 
     const logo = require('../../imgs/logo.png');
 
-    const askUserInfo = useCallback(async (token)=>{
-        let res = await requireUserInfo(token);
+    let token = window.sessionStorage.getItem('token') || '';
+    if(token===''){
+        navigate('/login');
+    }
+
+    const askUserInfo = useCallback(async ()=>{
+        let res = await requireUserInfo();
         if(res.status === 200){
-            setUserInfo(res.data);
+            setUserInfo(res.data.data);
         }else {
             setUserInfo({});
         }
     }, [])
 
+    const handlerUserClick = async ()=>{
+        if(userInfo.username){
+            let flag = window.confirm('是否登出?');
+            if(flag){
+                let res = await requireLogout();
+                if(res.status === 200){
+                    window.sessionStorage.removeItem('token');
+                    navigate('/login', {
+                        replace:true,
+                    })
+                }
+            }
+        }else {
+            navigate('/login')
+        }
+    }
+
     useEffect(()=>{
         token = window.sessionStorage.getItem('token') || '';
         if(token){
-            askUserInfo(token);
+            askUserInfo();
         }else {
             navigate('/login');
         }
@@ -53,15 +75,15 @@ export default function UserCenterPage(){
                     </div>
                     <div 
                         className="user-name"
-                        onClick={()=>{userInfo.name||navigate('/login')}}
+                        onClick={handlerUserClick}
                     >
                         {
-                            !userInfo.token ?
+                            !userInfo.username ?
                             <div className="log-tip">
                                 请先登录
                             </div>:
                             <div className="log-tip">
-                                {userInfo.userName}
+                                {userInfo.username}
                             </div>
                         }
                     </div>

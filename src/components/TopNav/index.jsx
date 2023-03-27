@@ -19,7 +19,7 @@ export default function TopNav(props){
     const askSwiperData = async()=>{
         let res = await requireSwiperData();
         if(res.status === 200){
-            setSwiperData(res.data);
+            setSwiperData(res.data.data);
         }
     }
 

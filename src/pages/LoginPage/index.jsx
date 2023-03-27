@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 import Logo from '../../components/Logo';
 import TopHeader from '../../components/TopHeader';
-import { requireLogin } from '../../static/require';
+import { requireLogin, requireRegister } from '../../static/require';
 
 import './index.css';
 
@@ -36,12 +36,27 @@ export default function LoginPage(){
             username,
             password
         });
-        console.log(res);
         if(res.status === 200){
-            window.sessionStorage.setItem('token', res.data);
+            window.sessionStorage.setItem('token', res.data.token);
             navigate(-1);
         }
     }, [navigate]); 
+
+    const askRegister = async (username, password)=>{
+        requireRegister({
+            username,
+            password
+        }).then(res=>{
+            if(res.status&&res.status === 200){
+                window.sessionStorage.setItem('token', res.data.token);
+                navigate(-1);
+            }else {
+                console.log(res.data.data)
+            }
+        }).catch(err=>{
+            console.log(err)
+        });
+    }; 
 
     const handlerLogin = useCallback((e)=>{
         e.preventDefault();
@@ -50,6 +65,14 @@ export default function LoginPage(){
         password.current.value = '';
         askLogin(userName, passw)
     }, [askLogin]); 
+
+    const handlerRegister = useCallback((e)=>{
+        e.preventDefault();
+        const userName = name.current.value, passw = password.current.value;
+        name.current.value = '';
+        password.current.value = '';
+        askRegister(userName, passw)
+    }, [askRegister])
 
 
     return (
@@ -85,8 +108,11 @@ export default function LoginPage(){
                             <form action=''>
                                 <label className='login-item'>用户名:<input type='text' ref={name} /></label>
                                 <label className='login-item'>密&emsp;  码:<input type='password' ref={password} /></label>
-                                <button className='transition-fives' onClick={handlerLogin}>登&emsp;录</button>
-                            </form>
+                                <div className="btn-box">
+                                    <button className='transition-fives login' onClick={handlerLogin}>登&emsp;录</button>
+                                    <button className='transition-fives register' onClick={handlerRegister}>注&emsp;册</button>
+                                </div>
+                                </form>
                         </div>
                     </div>
                 </div>
